@@ -1,0 +1,20 @@
+# Node.js
+node_modules
+package-lock.json
+
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Editor files
+.vscode/
+.idea/
+
+# Other
+*.log
+*.swp
+*.bak
