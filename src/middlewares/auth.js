@@ -90,9 +90,10 @@ exports.authenticateChat = async (req, res, next) => {
 
         jwt.verify(token, process.env.CHATBOT_TOKEN_SECRET, (err, decoded) => {
             if (err) {
+                console.log(err);
                 return res.status(403).json({ error: 'Invalid token' });
             }
-            if (decoded.identity != 'chatbot_microservice') {
+            if (decoded.sub != 'chatbot_microservice') {
                 return res.status(403).json({ error: 'Access denied' });
             }
             next();
