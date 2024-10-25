@@ -184,6 +184,22 @@ exports.user_data = async (req, res) => {
 };
 
 /**
+ * Get all users's datas.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
+exports.get_all_users = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        logger.error('Failed to get all users:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+/**
  * Request a password reset.
  *
  * @param {Object} req - The request object containing the email.

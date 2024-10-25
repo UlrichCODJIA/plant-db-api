@@ -51,6 +51,19 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin', 'cms', 'sync-service'],
         default: 'user',
     },
+    expertiseLevel: {
+        type: String,
+        enum: ['beginner', 'intermediate', 'advanced', 'expert'],
+        default: 'beginner',
+    },
+    isVerifiedResearcher: {
+        type: Boolean,
+        default: false,
+    },
+    resetPasswordToken: {
+        type: String,
+        select: false,
+    },
     resetPasswordToken: {
         type: String,
         select: false,

@@ -93,7 +93,7 @@ exports.authenticateChat = async (req, res, next) => {
                 console.log(err);
                 return res.status(403).json({ error: 'Invalid token' });
             }
-            if (decoded.sub != 'chatbot_microservice') {
+            if (decoded.service != 'chatbot') {
                 return res.status(403).json({ error: 'Access denied' });
             }
             next();

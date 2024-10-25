@@ -110,6 +110,42 @@ exports.getPlantById = async (req, res) => {
 };
 
 /**
+ * Get plants by specific fields.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise}
+ */
+exports.getPlantsByFields = async (req, res) => {
+    const { scientificName, commonName, habitat, medicinalUse } = req.query;
+    const query = {};
+
+    if (scientificName) {
+        query.scientificName = { $regex: scientificName, $options: 'i' };
+    }
+
+    if (commonName) {
+        query.commonNames = { $regex: commonName, $options: 'i' };
+    }
+
+    if (habitat) {
+        query.habitat = { $regex: habitat, $options: 'i' };
+    }
+
+    if (medicinalUse) {
+        query.medicinalUses = { $regex: medicinalUse, $options: 'i' };
+    }
+
+    try {
+        const plants = await Plant.find(query);
+        res.json(plants);
+    } catch (err) {
+        logger.error('Failed to get plants by fields:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+/**
  * Update a plant by ID.
  *
  * @param {Object} req - The request object.

@@ -37,6 +37,46 @@ router.get('/sync', authenticateSync, redisCachingMiddleware(300), plantControll
 
 /**
  * @swagger
+ * /api/plants/search:
+ *   get:
+ *     summary: Search plants by specific fields
+ *     parameters:
+ *       - in: query
+ *         name: scientificName
+ *         schema:
+ *           type: string
+ *         description: Scientific name of the plant
+ *       - in: query
+ *         name: commonName
+ *         schema:
+ *           type: string
+ *         description: Common name of the plant
+ *       - in: query
+ *         name: habitat
+ *         schema:
+ *           type: string
+ *         description: Habitat of the plant
+ *       - in: query
+ *         name: medicinalUse
+ *         schema:
+ *           type: string
+ *         description: Medicinal use of the plant
+ *     responses:
+ *       200:
+ *         description: Plants retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Plant'
+ *       500:
+ *         description: Server error
+ */
+router.get('/search', plantController.getPlantsByFields);
+
+/**
+ * @swagger
  * /api/plants/{id}:
  *   get:
  *     summary: Get a plant by ID
@@ -286,6 +326,6 @@ router.post(
  *       500:
  *         description: Server error
  */
-router.get('/', redisCachingMiddleware(300), plantController.getPlants);
+router.get('/', plantController.getPlants);
 
 module.exports = router;

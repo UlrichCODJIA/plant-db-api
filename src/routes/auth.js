@@ -332,4 +332,40 @@ router.route("/profile").get(authenticate, authController.profile).post(authenti
  */
 router.get("/user/:userId", authenticateChat, authController.user_data);
 
+/**
+ * @swagger
+ * /api/user/all:
+ *   get:
+ *     summary: Get data for all users
+ *     responses:
+ *       200:
+ *         description: User data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   username:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   firstName:
+ *                     type: string
+ *                   lastName:
+ *                     type: string
+ *                   languagePreference:
+ *                     type: string
+ *                   voicePreference:
+ *                     type: string
+ *                   imageGenerationStyle:
+ *                     type: string
+ *       500:
+ *         description: Server error
+ */
+router.get("/user/all", authenticateChat, authController.get_all_users);
+
 module.exports = router;
